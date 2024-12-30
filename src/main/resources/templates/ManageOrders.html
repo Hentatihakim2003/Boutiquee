@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cart | Hannes & Co.</title>
+        <link rel="stylesheet" href="/src/css/main.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="icon" type="image/svg+xml" href="/images/header/favicon.svg">
+    </head>
+    <body>
+        <img src="./images/header/headerprod.jpg" style="display: none;">
+        <div class="header">
+            <div class="container">
+                <div class="navbar">
+                    <div class="logo">
+                        <a href="/"><img src="/images/header/complogo.png" alt="comp" width="225px"></a>
+                    </div>
+					<nav>
+						<ul class="nav-menu">
+						    <li class="nav-item"><a href="/Admin">Home</a></li>
+						    <li class="nav-item"><a href="/Admin/Addproduct">AddProducts</a></li>
+						    <li class="nav-item"><a href="/Admin/Gerercmd">Gerer Commandes</a></li>
+							<li class="nav-item">
+							    <!-- Vérifie si "loggedUser" est dans la session -->
+							    <a href="#" th:if="${session.role != null}" th:href="@{/Auth/logout}">Logout</a>
+							    <a href="/LogorSign" th:if="${session.role == null}">Account</a>
+							</li>
+						</ul>
+					</nav>
+                    <a href="./cart.html"><img class="cart" src="./images/header/cart.svg"></a>
+                    <div class="toggle"><i class="fa fa-bars"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="formPage">
+                <h2>liste de Commandes</h2>
+			<table border="1">
+				        <thead>
+				            <tr>
+				                <th>N°commande</th>
+				                <th>Somme</th>
+				                <th>Change Status</th>
+				            </tr>
+				        </thead>
+						<tr th:each="commande : ${cmd}" th:with="statuses=${T(com.ecom.model.Commande.Status).values()}">
+						    <td th:text="${commande.orderId}">N° Commande</td>
+						    <td th:text="${commande.totalPrice}">Somme</td>
+						    <td th:text="${commande.status}">Statut</td>
+						    <td>
+						        <form th:action="@{/Admin/updateStatus}" method="post">
+						            <input type="hidden" name="orderId" th:value="${commande.orderId}" />
+						            <select name="status">
+						                <option th:each="status : ${statuses}"
+						                        th:value="${status}"
+						                        th:text="${status}"
+						                        th:selected="${status == commande.status}">
+						                </option>
+						            </select>
+						            <button type="submit">Mettre à jour</button>
+						        </form>
+						    </td>
+						</tr>
+			</table>
+            </div>
+        </div>
+        <div class="footer" id="footer">
+            <div class="container">
+                <div class="child">
+                    <div class="footerChild1">
+                        <img src="./images/header/complogo.png">
+                        <h4>Mail us at: <a href="mailto:hannes@hannesdev.xyz">hannesc@hannesdev.xyz</a></h4>
+                    </div>
+                    <div class="footerChild2">
+                        <h3>Help</h3>
+                        <ul>
+                            <li><a href="linkgoeshere">Payments</a></li>
+                            <li><a href="linkgoeshere">Shipping</a></li>
+                            <li><a href="linkgoeshere">Return Policy</a></li>
+                            <li><a href="linkgoeshere">FAQ Topics</a></li>
+                        </ul>
+                    </div>
+                    <div class="footerChild2">
+                        <h3>Our Socials</h3>
+                        <ul>
+                            <li><a href="linkgoeshere">Instagram</a></li>
+                            <li><a href="linkgoeshere">Facebook</a></li>
+                            <li><a href="linkgoeshere">Twitter</a></li>
+                            <li><a href="linkgoeshere">Linkedin</a></li>
+                        </ul>
+                    </div>
+                    <div class="footerChild2">
+                        <h3>Registered Office</h3>
+                        <ul>
+                            <li>Apartment A13, Floor 15,</li>
+                            <li>Sunnyvale Park,</li>
+                            <li>Ilinois, CA.</li>
+                            <li>-</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="belowfooter">
+                    &copy; Hannes & Co. Associates, 2023 <br>
+                    Aditya Chakravorty, All rights reserved.
+                </div>
+            </div>
+        </div>
+        <script src="./src/js/script.js"></script>
+    </body>
+</html>

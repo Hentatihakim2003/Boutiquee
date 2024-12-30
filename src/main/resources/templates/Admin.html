@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hannes & Co.</title>
+        <link rel="stylesheet" href="/src/css/main.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="icon" type="image/svg+xml" href="/images/header/favicon.svg">
+    </head>
+    <body>
+        <img src="/images/header/headerprod.jpg" style="display: none;">
+        <div class="header">
+            <div class="container">
+                <div class="navbar">
+                    <div class="logo">
+                        <a href="/"><img src="/images/header/complogo.png" alt="comp" width="225px"></a>
+                    </div>
+                    <nav>
+                        <ul class="nav-menu">
+                            <li class="nav-item"><a href="/Admin">Home</a></li>
+                            <li class="nav-item"><a href="/Admin/Addproduct">AddProducts</a></li>
+                            <li class="nav-item"><a href="/Admin/Gerercmd">Gerer Commandes</a></li>
+
+							<li class="nav-item">
+							    <!-- Vérifie si "loggedUser" est dans la session -->
+							    <a href="#" th:if="${session.role != null}" th:href="@{/logout}">Logout</a>
+							    <a href="/Auth" th:if="${session.role == null}">Account</a>
+							</li>
+                        </ul>
+                    </nav>
+                    <a href="/cart"><img class="cart" src="./images/header/cart.svg"></a>
+                    <div class="toggle"><i class="fa fa-bars"></i></div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="./src/js/script.js"></script>
+    </body>
+</html>

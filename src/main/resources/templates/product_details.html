@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product-109B | Hannes & Co.</title>
+        <link rel="stylesheet" href="/src/css/main.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="icon" type="image/svg+xml" href="/images/header/favicon.svg">
+    </head>
+    <body class="ohhh">
+        <div class="header">
+            <div class="container">
+                <div class="navbar">
+                    <div class="logo">
+                        <a href="/"><img src="/images/header/complogo.png" alt="comp" width="225px"></a>
+                    </div>
+                    <nav>
+						<ul class="nav-menu">
+						    <li class="nav-item"><a href="/">Home</a></li>
+						    <li class="nav-item"><a href="index/products">Products</a></li>
+						    <li class="nav-item"><a href="#footer">Contact Us</a></li>
+							<li class="nav-item" th:if="${session.loggedUser != null}">
+							    <a href="/orders" th:if="${session.loggedUser != null}">My orders</a>
+							</li>
+							<li class="nav-item">
+							    <!-- Vérifie si "loggedUser" est dans la session -->
+							    <a href="#" th:if="${session.loggedUser != null}" th:href="@{/Auth/logout}">Logout</a>
+							    <a href="/LogorSign" th:if="${session.loggedUser == null}">Account</a>
+							</li>
+						</ul>
+                    </nav>
+                    <a href="/cart"><img class="cart" src="/images/header/cart.svg"></a>
+                    <div class="toggle"><i class="fa fa-bars"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="small-container single-product">
+            <div class="child">
+                <div class="halfchild">
+                    <img th:src="@{'img/product_img/'+${product_detail.image}}" width="550px" height="500px" id="prodImg"><br><br><br>
+                    <div class="small-img-child">
+                        <div class="small-img-col">
+                            <img src="/images/products/product-13.webp" width="100%" class="small-img">
+                        </div>
+                        <div class="small-img-col">
+                            <img src="/images/products/product-12.webp" width="100%" class="small-img">
+                        </div>
+                        <div class="small-img-col">
+                            <img src="/images/products/product-6.webp" width="100%" class="small-img">
+                        </div>
+                        <div class="small-img-col">
+                            <img src="/images/products/product-15.webp" width="100%" class="small-img">
+                        </div>
+                    </div>
+                </div>
+                <div class="halfchild">
+                    <p>Home / Products</p>
+                    <h1 th:text="${product_detail.title}" >Jackets for Women</h1>
+                    <h4 th:text="'$' + ${product_detail.price}">$109.00</h4>
+					<form th:action="@{/AddToCart}" method="post">
+					        <select name="size" required>
+					            <option disabled selected>Select Size</option>
+					            <option>XXL</option>
+					            <option>XL</option>
+					            <option>L</option>
+					            <option>M</option>
+					            <option>S</option>
+					        </select>
+					        <input type="number" name="qte" value="1" min="0" th:attr="max=${product_detail.stock}" required>
+							<span th:if="${product_detail.stock <= 0}" style="color: red;">Out of stock</span>
+					        <input type="hidden" name="productid" th:value="${product_detail.id}">
+					        <button type="submit" class="btn">Add To Cart</button>
+					    </form>
+                    <h3>Product Details <i class="fa fa-indent"></i></h3>
+                    <br>
+                    <p th:text="${product_detail.description}">
+                        Unleash your inner demons and go beyond what you can achieve. Try our slim fit wear
+                        starting at only $109.99*
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="small-container">
+            <div class="child child-2">
+                <h2>Related Products</h2>
+                <p><a href="./products.html">View More</a></p>
+            </div>
+        </div>
+        <div class="small-container">
+            <div class="child">
+                <div class="footerChild2">
+                    <img src="/images/products/product-3.webp">
+                    <h4>Casual Hoodies</h4>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                    </div>
+                    <p>$89.99</p>
+                </div>
+                <div class="footerChild2">
+                    <img src="/images/products/product-1.webp">
+                    <h4>Sports Wear</h4>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <p>$109.99</p>
+                </div>
+                <div class="footerChild2">
+                    <img src="./images/products/product-11.webp">
+                    <h4>Black T-Shirt for Women</h4>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p>$79.99</p>
+                </div>
+                <div class="footerChild2">
+                    <img src="./images/products/product-12.webp">
+                    <h4>Gym Wear</h4>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <p>$59.99</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer" id="footer">
+            <div class="container">
+                <div class="child">
+                    <div class="footerChild1">
+                        <img src="./images/header/complogo.png">
+                        <h4>Mail us at: <a href="mailto:hannes@hannesdev.xyz">hannesc@hannesdev.xyz</a></h4>
+                    </div>
+                    <div class="footerChild2">
+                        <h3>Help</h3>
+                        <ul>
+                            <li><a href="linkgoeshere">Payments</a></li>
+                            <li><a href="linkgoeshere">Shipping</a></li>
+                            <li><a href="linkgoeshere">Return Policy</a></li>
+                            <li><a href="linkgoeshere">FAQ Topics</a></li>
+                        </ul>
+                    </div>
+                    <div class="footerChild2">
+                        <h3>Our Socials</h3>
+                        <ul>
+                            <li><a href="linkgoeshere">Instagram</a></li>
+                            <li><a href="linkgoeshere">Facebook</a></li>
+                            <li><a href="linkgoeshere">Twitter</a></li>
+                            <li><a href="linkgoeshere">Linkedin</a></li>
+                        </ul>
+                    </div>
+                    <div class="footerChild2">
+                        <h3>Registered Office</h3>
+                        <ul>
+                            <li>Apartment A13, Floor 15,</li>
+                            <li>Sunnyvale Park,</li>
+                            <li>Ilinois, CA.</li>
+                            <li>-</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="belowfooter">
+                    &copy; Hannes & Co. Associates, 2023 <br>
+                    Aditya Chakravorty, All rights reserved.
+                </div>
+            </div>
+        </div>
+        <script src="./src/js/script.js"></script>
+    </body>
+</html>
